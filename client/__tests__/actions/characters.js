@@ -72,5 +72,15 @@ describe('Actions: characters', () => {
         'https://anapioficeandfire.com/api/characters/'
       );
     });
+
+    test('dispatches corrects actions on catch', async () => {
+      fetch.mockReject(new Error('Not Gucci'));
+      await store.dispatch(fetchCharacters());
+      const actions = store.getActions();
+      expect(actions[1]).toEqual({
+        type: FETCH_CHARACTERS_RESPONSE,
+        error: new Error('Not Gucci')
+      });
+    });
   });
 });

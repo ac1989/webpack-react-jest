@@ -12,6 +12,9 @@ export const fetchCharacters = () => {
       .then(data => {
         doSomething({ status: 'Gucci' });
         dispatch({ type: FETCH_CHARACTERS_RESPONSE, characters: data });
+      })
+      .catch(error => {
+        dispatch({ type: FETCH_CHARACTERS_RESPONSE, error });
       });
   };
 };
