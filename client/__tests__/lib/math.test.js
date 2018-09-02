@@ -1,4 +1,4 @@
-import { sum } from '../../client/src/lib/math';
+import { sum } from 'lib/math';
 
 describe('math lib sum', () => {
   test('should correctly sum 1 + 2', () => {

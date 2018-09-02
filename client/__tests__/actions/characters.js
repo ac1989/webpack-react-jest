@@ -40,19 +40,13 @@ describe('Actions: characters', () => {
   });
 
   describe('fetchCharacters', () => {
-    test('dispatches correct actions on fetching characters', async () => {
+    test('dispatches correct actions', async () => {
       fetch.once(JSON.stringify(mockResponse));
 
       const utils = require('lib/utils');
-      utils.doSomething = jest.fn(() => {
-        console.log('Mockery');
-      });
+      utils.doSomething = jest.fn();
 
       await store.dispatch(fetchCharacters());
-
-      expect(fetch.mock.calls[0][0]).toBe(
-        'https://anapioficeandfire.com/api/characters/'
-      );
 
       const actions = store.getActions();
       expect(actions[0]).toEqual({ type: FETCH_CHARACTERS_REQUEST });
@@ -60,8 +54,23 @@ describe('Actions: characters', () => {
         type: FETCH_CHARACTERS_RESPONSE,
         characters: mockResponse
       });
+    });
 
+    test('calls my side effect', async () => {
+      fetch.once(JSON.stringify(mockResponse));
+      const utils = require('lib/utils');
+      utils.doSomething = jest.fn();
+
+      await store.dispatch(fetchCharacters());
       expect(utils.doSomething).toBeCalledWith({ status: 'Gucci' });
+    });
+
+    test('calls correct endpoint', async () => {
+      fetch.once(JSON.stringify(mockResponse));
+      await store.dispatch(fetchCharacters());
+      expect(fetch.mock.calls[0][0]).toBe(
+        'https://anapioficeandfire.com/api/characters/'
+      );
     });
   });
 });

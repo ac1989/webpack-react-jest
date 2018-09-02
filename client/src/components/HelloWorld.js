@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { sum } from '../lib/math';
 import { fetchCharacters } from '../actions/characters';
 
-class HelloWorld extends Component {
+export class HelloWorld extends Component {
   componentDidMount() {
-    console.log('Mounted.');
     this.props.fetchCharacters();
   }
   render() {

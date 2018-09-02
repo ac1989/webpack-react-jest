@@ -3,6 +3,6 @@ describe('index', () => {
     const root = document.createElement('div');
     root.setAttribute('id', 'root');
     document.body.appendChild(root);
-    require('../client/src/index');
+    require('./index');
   });
 });
